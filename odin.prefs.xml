@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE preferences SYSTEM "http://java.sun.com/dtd/preferences.dtd">
+<preferences EXTERNAL_XML_VERSION="1.0">
+  <root type="user">
+    <map/>
+    <node name="mars">
+      <map/>
+      <node name="deimos">
+        <map/>
+        <node name="object">
+          <map/>
+          <node name="customisation">
+            <map>
+              <entry key="deimos.locale.lang" value="en"/>
+              <entry key="deimos.locale.country" value="GB"/>
+              <entry key="deimos.lnf" value="javax.swing.plaf.metal.MetalLookAndFeel"/>
+              <entry key="deimos.logLevel" value="All"/>
+              <entry key="deimos.dir.XSD" value="C:\Users\Alex\Documents\My Work\Open University\M450 - The Computing Project\MARS\FormatDoc.xsd"/>
+              <entry key="deimos.dir.Log" value="C:\Users\Alex\Documents\My Work\Open University\M450 - The Computing Project\MARS\Logs\"/>
+              <entry key="deimos.comPort.numberToMonitor" value="1"/>
+              <entry key="deimos.config.preferredMARSHost" value="localhost"/>
+              <entry key="deimos.comPort.0.name" value="COM99"/>
+              <entry key="deimos.comPort.0.baud" value="9600"/>
+              <entry key="deimos.comPort.0.data" value="8"/>
+              <entry key="deimos.comPort.0.parity" value="None"/>
+              <entry key="deimos.comPort.0.stop" value="1.0"/>
+            </map>
+          </node>
+        </node>
+      </node>
+    </node>
+  </root>
+</preferences>

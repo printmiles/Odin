@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified"
+           xmlns="http://sites.google.com/site/printmiles/Odin"
+           targetNamespace="http://sites.google.com/site/printmiles/Odin">
+<!--
+Name:           Report
+Version:        1
+Author:         Alexander J. Harris
+Project:        Open Document and Information Network (Odin)
+Last Modified:  08-Jul-2011
+-->
+  <xs:element name="report">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="summary" minOccurs="1" maxOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="numberOfFiles" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+              <xs:element name="lastUpdate" type="xs:dateTime" minOccurs="1" maxOccurs="1"/>
+            </xs:sequence>  
+          </xs:complexType>  
+        </xs:element>
+        <xs:element name="reports" minOccurs="1" maxOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <!-- Report by the document's file type -->
+              <xs:element name="fileType" type="entries" minOccurs="1" maxOccurs="1"/>
+              <!-- Report by the document's MIME type -->
+              <xs:element name="mimeType" type="entries" minOccurs="1" maxOccurs="1"/>
+              <!-- Report by the originating country of the document -->
+              <xs:element name="country" type="entries" minOccurs="1" maxOccurs="1"/>
+              <!-- Report by the language of the document -->
+              <xs:element name="language" type="entries" minOccurs="1" maxOccurs="1"/>
+              <!-- Report by the author's name -->
+              <xs:element name="author" type="entries" minOccurs="1" maxOccurs="1"/>
+              <!-- Report by the author's organisation -->
+              <xs:element name="organisation" type="entries" minOccurs="1" maxOccurs="1"/>
+              <!-- Report by the date the document was submitted to Odin -->
+              <xs:element name="submitted" type="entries" minOccurs="1" maxOccurs="1"/>
+              <!-- Report by the trust score of the document -->
+              <xs:element name="trust" type="entries" minOccurs="1" maxOccurs="1"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:complexType name="entries">
+    <xs:sequence>
+      <xs:element name="entry" minOccurs="0" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="value" type="xs:string" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="amount" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  
+</xs:schema>

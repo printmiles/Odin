@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified"
+           xmlns="http://sites.google.com/site/printmiles/Odin"
+           targetNamespace="http://sites.google.com/site/printmiles/Odin">
+<!--
+Name:           List
+Version:        5
+Author:         Alexander J. Harris
+Project:        Open Document and Information Network (Odin)
+Last Modified:  10-Apr-2011
+-->
+  <xs:element name="item">
+    <xs:complexType>
+      <xs:sequence>
+        <!-- A unique identifier for the document within this repository (this will also act as the file name) -->
+        <xs:element name="guid" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <!-- The document title (defaults to the file name on entry to the repository) -->
+        <xs:element name="title" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <!-- The MIME file type (this is a GUID relating to more information in the FileFormat documents) -->
+        <xs:element name="format" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <!-- Information about the documents origin and provenance -->
+        <xs:element name="origin" minOccurs="1" maxOccurs="1">
+          <xs:complexType>
+            <xs:all>
+              <xs:element name="author" minOccurs="1" maxOccurs="1">
+                <xs:complexType>
+                  <xs:sequence>
+                    <!-- The author's first name (defaults to a user name in many cases) -->
+                    <xs:element name="firstName" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                    <!-- The author's surname -->
+                    <xs:element name="surname" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                    <!-- The author's prefix (if any) -->
+                    <xs:element name="prefix" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                    <!-- The author's affiliated company or organisation -->
+                    <xs:element name="company" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                    <!-- The author's email address for contact -->
+                    <xs:element name="email" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                    <!-- The author's website for reference -->
+                    <xs:element name="website" type="xs:anyURI" minOccurs="1" maxOccurs="1"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <!-- Information relating to the document's locale -->
+              <xs:element name="locale" minOccurs="1" maxOccurs="1">
+                <xs:complexType>
+                  <xs:all>
+                    <!-- The native language of the document (as per ISO639-1:2002) -->
+                    <xs:element name="language" type="xs:language" minOccurs="1" maxOccurs="1"/>
+                    <!-- The originating country of the document (as per ISO3166-1:2006) -->
+                    <xs:element name="country" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                  </xs:all>
+                </xs:complexType>
+              </xs:element>
+              <!-- Details relating to when the document was first added to the repository -->
+              <xs:element name="added" type="addedDetails" minOccurs="1" maxOccurs="1"/>
+            </xs:all>
+          </xs:complexType>
+        </xs:element>
+        <!-- The trust score of the document -->
+        <xs:element name="trust" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+        <!-- Any specific attributes which can be associated with the document (field specific terms) -->
+        <xs:element name="attributes" minOccurs="1" maxOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <!-- An individual attribute that may be field specific -->
+              <xs:element name="attribute" minOccurs="1" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:all>
+                    <!-- The attribute type (ie. "RFC") -->
+                    <xs:element name="key" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                    <!-- The attribute value (ie. 5841) -->
+                    <xs:element name="value" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                  </xs:all>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <!-- Specific keywords that can be associated with the document -->
+        <xs:element name="keywords" minOccurs="1" maxOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <!-- An individual keyword -->
+              <xs:element name="keyword" type="xs:string" minOccurs="1" maxOccurs="unbounded"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <!-- The exact location of the file within the repository or archive -->
+        <xs:element name="location" minOccurs="1" maxOccurs="1">
+          <xs:complexType>
+            <xs:all>
+              <!-- The file path to be used for opening the document -->
+              <xs:element name="path" type="xs:anyURI" minOccurs="1" maxOccurs="1"/>
+              <!-- Information contained about the document while in the main repository -->
+              <xs:element name="repository" minOccurs="1" maxOccurs="1">
+                <xs:complexType>
+                  <xs:sequence>
+                    <!-- Details of every time the document is moved to the main repository -->
+                    <xs:element name="added" type="addedDetails" minOccurs="1" maxOccurs="unbounded"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <!-- Information contained about the document while in the archive -->
+              <xs:element name="archive" minOccurs="1" maxOccurs="1">
+                <xs:complexType>
+                  <xs:sequence>
+                    <!-- Details of every time the document is moved to the archive -->
+                    <xs:element name="added" type="addedDetails" minOccurs="0" maxOccurs="unbounded"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:all>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+    <!-- Definition for the addedDetails type -->
+    <xs:complexType name="addedDetails">
+      <xs:all>
+        <!-- The time and date of the update -->
+        <xs:element name="at" type="xs:dateTime" minOccurs="1" maxOccurs="1"/>
+        <!-- Who made the update (as the system doesn't support logins this will use user IDs from the machine) -->
+        <xs:element name="by" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <!-- The IP address / machine name the update was sent from -->
+        <xs:element name="from" type="xs:string" minOccurs="1" maxOccurs="1"/>
+      </xs:all>
+    </xs:complexType>
+</xs:schema>

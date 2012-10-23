@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified"
+           xmlns="http://sites.google.com/site/printmiles/Odin"
+		   targetNamespace="http://sites.google.com/site/printmiles/Odin">
+<!--
+Name:           Rule
+Version:        3
+Author:         Alexander J. Harris
+Project:        Open Document and Information Network (Odin)
+Last Modified:  12-Apr-2011
+-->
+  <xs:element name="rule">
+    <xs:complexType>
+      <!-- Rule is the root element with each document containing only one full rule -->
+      <xs:sequence>
+        <!-- An identifier which can be used to uniquely identify the rule within this repository and others -->
+        <xs:element name="guid" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <!-- The author of the rule -->
+        <xs:element name="author" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <!-- Contact details (for more information) -->
+        <xs:element name="contact" minOccurs="1" maxOccurs="1">
+          <xs:complexType>
+            <xs:all>
+              <!-- A contact email address -->
+              <xs:element name="email" type="xs:string" minOccurs="1" maxOccurs="1"/>
+              <!-- A website for reference -->
+              <xs:element name="website" type="xs:anyURI" minOccurs="1" maxOccurs="1"/>
+            </xs:all>
+          </xs:complexType>
+        </xs:element>
+        <!-- The type of conversion to take place.
+        Currently XSLT is the only one supported but allows for expansion -->
+        <xs:element name="type" minOccurs="1" maxOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="xml" minOccurs="1" maxOccurs="1">
+                <xs:complexType>
+                  <xs:sequence>
+                    <!-- The XSLT code for use -->
+                    <xs:element name="transform" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <!-- The trust score of the rule -->
+        <xs:element name="trust" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+        <!-- Details of how the rule has propogated to this repository -->
+        <xs:element name="propogation" minOccurs="1" maxOccurs="1">
+          <xs:complexType>
+            <xs:all>
+              <!-- The namespace of the rule (to uniquely identify amongst others) -->
+              <xs:element name="namespace" type="xs:anyURI" minOccurs="1" maxOccurs="1"/>
+              <!-- The original XSLT script (for checking) -->
+              <xs:element name="origin" type="xs:anyURI" minOccurs="1" maxOccurs="1"/>
+              <!-- The path of how the rule got here -->
+              <xs:element name="path" minOccurs="1" maxOccurs="1">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="node" minOccurs="1" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:all>
+                          <!-- The order from the originator (1) to this repository (n) -->
+                          <xs:element name="order" type="xs:integer" minOccurs="1"/>
+                          <!-- The name of the server which it passed through -->
+                          <xs:element name="server" type="xs:anyURI" minOccurs="1"/>
+                        </xs:all>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:all>
+          </xs:complexType>
+        </xs:element>
+        <!-- Details of the version of the rule being used -->
+        <xs:element name="version" maxOccurs="1">
+          <xs:complexType>
+            <xs:all>
+              <!-- The major version of the rule. Beta and alpha releases should be 0 in this field -->
+              <xs:element name="major" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+              <!-- The minor version of the rule. -->
+              <xs:element name="minor" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+              <!-- The date (ISO 8601 format) when the rule was published -->
+              <xs:element name="published" type="xs:date" minOccurs="1" maxOccurs="1"/>
+            </xs:all>
+          </xs:complexType>
+        </xs:element>
+        <!-- Information about what state the rule is in for this repository.
+        All rules are propogated as "disabled" until otherwise stated by SysAdmins -->
+        <xs:element name="status" minOccurs="1" maxOccurs="1">
+          <xs:complexType>
+            <xs:choice>
+              <!-- The rule is stored on the local file system but is not active in any form -->
+              <xs:element name="disabled" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+              <!-- The rule is running but outputted (transformed) files are placed
+              in a directory away from production files -->
+              <xs:element name="quarantine" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+              <!-- The rule is actively being used to update and subsequently overwrite old data -->
+              <xs:element name="active" minOccurs="1" maxOccurs="1">
+                <xs:complexType>
+                  <xs:all>
+                    <xs:element name="lastrun" minOccurs="1" maxOccurs="1">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <!-- The date and time of any run of this rule -->
+                          <xs:element name="run" type="xs:dateTime" maxOccurs="unbounded"/>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:all>
+                </xs:complexType>
+              </xs:element>
+            </xs:choice>
+          </xs:complexType>
+        </xs:element>
+        <!-- Details about the conversion rule. What file formats it converts from and to. -->
+        <xs:element name="convert" minOccurs="1" maxOccurs="1">
+          <xs:complexType>
+            <xs:all>
+              <!-- The file type which will be sought within the repository -->
+              <xs:element name="from" type="fileType" minOccurs="1" maxOccurs="1">
+                <xs:complexType>
+                  <xs:all>
+                    <!-- This should be the IANA / RFC2046 recognised MIME type for the document type in question -->
+                    <xs:element name="mime" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                    <!-- This is the recognised file type extension -->
+                    <xs:element name="extension" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                    <!-- A description of the file (for clarification purposes) -->
+                    <xs:element name="description" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                  </xs:all>
+                </xs:complexType>
+              </xs:element>
+              <!-- The output file type which will be written to the repository -->
+              <xs:element name="to" type="fileType" minOccurs="1" maxOccurs="1">
+                <xs:complexType>
+                  <xs:all>
+                    <!-- This should be the IANA / RFC2046 recognised MIME type for the document type in question -->
+                    <xs:element name="mime" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                    <!-- This is the recognised file type extension -->
+                    <xs:element name="extension" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                    <!-- A description of the file (for clarification purposes) -->
+                    <xs:element name="description" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                  </xs:all>
+                </xs:complexType>
+              </xs:element>
+            </xs:all>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified"
+           xmlns="http://sites.google.com/site/printmiles/Odin"
+           targetNamespace="http://sites.google.com/site/printmiles/Odin">
+<!--
+Name:           SecurityPermission
+Version:        4
+Author:         Alexander J. Harris
+Project:        Open Document and Information Network (Odin)
+Last Modified:  12-Apr-2011
+-->
+  <xs:element name="permission">
+    <xs:complexType>
+      <xs:all>
+        <!-- This contains permissions for an Odin server. -->
+        <xs:element name="guid" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="order" type="xs:integer" minOccurs="1" maxOccurs="1">
+          <xs:complexType>
+            <xs:choice>
+              <xs:element name="allow" type="xs:string" minOccurs="1" maxOccurs="1"/>
+              <xs:element name="block" type="xs:string" minOccurs="1" maxOccurs="1"/>
+            </xs:choice>
+          </xs:complexType>
+        </xs:element>
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

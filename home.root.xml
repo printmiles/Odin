@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<root xmlns="http://sites.google.com/site/printmiles/Odin">
+  <subjects>
+    <subject>Test server</subject>
+    <subject>Personal</subject>
+    <subject>Alex Harris</subject>
+  </subjects>
+  <details>
+    <serverName>Master Odin Development Server</serverName>
+    <website>http://sites.google.com/site/printmiles/Odin</website>
+    <email>printmiles@hotmail.com</email>
+    <phone>+44 1273 684520</phone>
+    <adminName>Alexander J. Harris</adminName>
+  </details>
+  <policies>
+    <repository>
+      <database>
+        <driver>com.mysql.jdbc.Driver</driver>
+        <connection>jdbc:mysql://localhost/odin</connection>
+        <user>root</user>
+        <pw>Crysta1C0ve</pw>
+      </database>
+    </repository>
+    <zip>
+      <store>true</store>
+      <extract>true</extract>
+    </zip>
+    <xml>
+      <namespace>true</namespace>
+    </xml>
+    <trust>
+      <reject>100</reject>
+      <accept>900</accept>
+    </trust>
+  </policies>
+  <locations>
+    <archive>C:/Odin/Archive/</archive>
+    <conversion>C:/Odin/Conversion Rules/</conversion>
+    <format>C:/Odin/MIME Formats/</format>
+    <logging>C:/Odin/Logs/</logging>
+    <preference>C:/Odin/Preferences/</preference>
+    <quarantine>C:/Odin/Quarantine/</quarantine>
+    <repository>C:/Odin/Repository/</repository>
+    <report>C:/Odin/Report/report.xml</report>
+    <barcode>http://192.168.1.65:8080/odin/metadata.jsp</barcode>
+  </locations>
+</root>

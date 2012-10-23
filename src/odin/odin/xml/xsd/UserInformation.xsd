@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified"
+           xmlns="http://sites.google.com/site/printmiles/Odin"
+           targetNamespace="http://sites.google.com/site/printmiles/Odin">
+<!--
+Name:           UserInformation
+Version:        3
+Author:         Alexander J. Harris
+Project:        Open Document and Information Network (Odin)
+Last Modified:  12-Apr-2011
+-->
+  <xs:element name="user">
+    <xs:complexType>
+      <xs:all>
+        <!-- This contains user information for Odin users able to perform admin functions -->
+        <xs:element name="title" type="xs:string" minOccurs="1"/>
+        <xs:element name="firstname" type="xs:string" minOccurs="1"/>
+        <xs:element name="surname" type="xs:string" minOccurs="1"/>
+        <xs:element name="userid" type="xs:string" minOccurs="1"/>
+        <xs:element name="password" type="xs:base64Binary" minOccurs="1"/>
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

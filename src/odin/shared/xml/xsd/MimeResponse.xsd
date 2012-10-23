@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified"
+           xmlns="http://sites.google.com/site/printmiles/Odin"
+           targetNamespace="http://sites.google.com/site/printmiles/Odin">
+<!--
+Name:           MimeResponse
+Version:        2
+Author:         Alexander J. Harris
+Project:        Open Document and Information Network (Odin)
+Last Modified:  12-Apr-2011
+-->
+  <xs:element name="mimeTypes">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="document" minOccurs="1" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:all>
+              <!-- The MIME file type -->
+              <xs:element name="mimetype" type="xs:string" minOccurs="1" maxOccurs="1"/>
+              <!-- The file extension (if any, if not, "" should be returned) -->
+              <xs:element name="fileextension" type="xs:string" minOccurs="1" maxOccurs="1"/>
+            </xs:all>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

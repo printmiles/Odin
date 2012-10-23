@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified"
+           xmlns="http://sites.google.com/site/printmiles/Odin"
+           targetNamespace="http://sites.google.com/site/printmiles/Odin">
+<!--
+Name:           Repository
+Version:        2
+Author:         Alexander J. Harris
+Project:        Open Document and Information Network (Odin)
+Last Modified:  12-Apr-2011
+-->
+  <xs:element name="repository">
+    <xs:complexType>
+      <xs:all>
+        <!-- Repositories are those servers which this one "knows" about -->
+        <xs:element name="address" type="xs:anyURI" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="trust" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="keywords" maxOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="keyword" type="xs:string" maxOccurs="unbounded"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

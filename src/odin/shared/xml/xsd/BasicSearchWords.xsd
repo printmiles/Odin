@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified"
+           xmlns="http://sites.google.com/site/printmiles/Odin"
+           targetNamespace="http://sites.google.com/site/printmiles/Odin">
+<!--
+Name:           BasicSearchWords
+Version:        1
+Author:         Alexander J. Harris
+Project:        Open Document and Information Network (Odin)
+Last Modified:  04-May-2011
+-->
+  <xs:element name="basic">
+    <xs:complexType>
+      <xs:all>
+        <!-- Information about the client sending documents to Odin -->
+        <xs:element name="ipaddress" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="username" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <!-- Any search criteria within the document -->
+        <xs:element name="document" minOccurs="1" maxOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <!-- Specific words that could appear anywhere within the document -->
+              <xs:element name="words" minOccurs="1" maxOccurs="1">
+                <xs:complexType>
+                  <xs:sequence>
+                    <!-- An individual word -->
+                    <xs:element name="word" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

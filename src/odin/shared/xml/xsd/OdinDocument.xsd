@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:xmime="http://www.w3.org/2005/05/xmlmime"
+           elementFormDefault="qualified"
+           xmlns="http://sites.google.com/site/printmiles/Odin"
+           targetNamespace="http://sites.google.com/site/printmiles/Odin">
+<!--
+Name:           OdinDocument
+Version:        5
+Author:         Alexander J. Harris
+Project:        Open Document and Information Network (Odin)
+Last Modified:  13-Apr-2011
+-->
+  <xs:element name="document">
+    <xs:complexType>
+      <xs:all>
+        <!-- Information about the client sending documents to Odin -->
+        <xs:element name="ipaddress" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="username" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <!-- Meta-data about the document being sent -->
+        <xs:element name="metadata" minOccurs="1" maxOccurs="1">
+          <xs:complexType>
+            <xs:all>
+              <!-- The document title -->
+              <xs:element name="title" type="xs:string" minOccurs="1" maxOccurs="1"/>
+              <!-- The MIME file type -->
+              <xs:element name="mimetype" type="xs:string" minOccurs="1" maxOccurs="1"/>
+              <!-- The file extension (if any, if not, "" should be returned) -->
+              <xs:element name="fileextension" type="xs:string" minOccurs="1" maxOccurs="1"/>
+              <!-- Information about the documents origin and provenance -->
+              <xs:element name="author" minOccurs="1" maxOccurs="1">
+                <xs:complexType>
+                  <xs:all>
+                    <!-- The author's first name (defaults to a user name in many cases) -->
+                    <xs:element name="firstName" type="xs:string" maxOccurs="1"/>
+                    <!-- The author's surname -->
+                    <xs:element name="surname" type="xs:string" maxOccurs="1"/>
+                    <!-- The author's prefix (if any) -->
+                    <xs:element name="prefix" type="xs:string" maxOccurs="1"/>
+                    <!-- The author's affiliated company or organisation -->
+                    <xs:element name="company" type="xs:string" maxOccurs="1"/>
+                    <!-- The author's email address for contact -->
+                    <xs:element name="email" type="xs:string" maxOccurs="1"/>
+                    <!-- The author's website for reference -->
+                    <xs:element name="website" type="xs:anyURI" maxOccurs="1"/>
+                  </xs:all>
+                </xs:complexType>
+              </xs:element>
+              <!-- Information relating to the document's locale -->
+              <xs:element name="locale"  minOccurs="1" maxOccurs="1">
+                <xs:complexType>
+                  <xs:all>
+                    <!-- The native language of the document (as per ISO639-1:2002) -->
+                    <xs:element name="language" type="xs:language" maxOccurs="1"/>
+                    <!-- The originating country of the document (as per ISO3166-1:2006) -->
+                    <xs:element name="country" type="xs:string" maxOccurs="1"/>
+                  </xs:all>
+                </xs:complexType>
+              </xs:element>
+              <!-- Document attributes -->
+              <xs:element name="attributes" minOccurs="1" maxOccurs="1">
+                <xs:complexType>
+                  <xs:sequence>
+                    <!-- An individual attribute that may be field specific -->
+                    <xs:element name="attribute" minOccurs="1" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:all>
+                          <!-- The attribute type (ie. "RFC") -->
+                          <xs:element name="key" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                          <!-- The attribute value (ie. 5841) -->
+                          <xs:element name="value" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                        </xs:all>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <!-- Specific keywords that can be associated with the document -->
+              <xs:element name="keywords" minOccurs="1" maxOccurs="1">
+                <xs:complexType>
+                  <xs:sequence>
+                    <!-- An individual keyword -->
+                    <xs:element name="keyword" type="xs:string" minOccurs="1" maxOccurs="unbounded"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:all>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="document" type="xs:base64Binary" xmime:expectedContentTypes="application/octet-stream" minOccurs="1"/>
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

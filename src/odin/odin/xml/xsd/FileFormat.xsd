@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified"
+           xmlns="http://sites.google.com/site/printmiles/Odin"
+           targetNamespace="http://sites.google.com/site/printmiles/Odin">
+<!--
+Name:           FileFormat
+Version:        4
+Author:         Alexander J. Harris
+Project:        Open Document and Information Network (Odin)
+Last Modified:  12-Apr-2011
+-->
+  <xs:element name="format">
+    <xs:complexType>
+      <!--
+      In this data table both ext and mime form a primary key. Mime descriptors for
+      file formats can be ambiguous and so file extensions have been added to define
+      exactly which type of file we're looking at.
+      -->
+      <xs:sequence>
+        <!-- The unique identifier for this file type which is then used in the list documents -->
+        <xs:element name="guid" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <!-- The typically used file extension with this file type -->
+        <xs:element name="ext" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <!-- The associated mime type for this file -->
+        <xs:element name="mime" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <!--
+        The description associated with this file type.
+        For example;
+
+        <ext>html</ext>
+        <mime>text/html</mime>
+
+        The description could then be:
+        <description>A plain-text file containing web-page content.</description>
+
+        This is to provide some form of user-friendly description for
+        the more obscure file extensions out there.
+        -->
+        <xs:element name="description" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

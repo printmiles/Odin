@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified"
+           xmlns="http://sites.google.com/site/printmiles/Odin"
+           targetNamespace="http://sites.google.com/site/printmiles/Odin">
+<!--
+Name:           Server
+Version:        8
+Author:         Alexander J. Harris
+Project:        Open Document and Information Network (Odin)
+Last Modified:  28-Mar-2012
+-->
+  <xs:element name="root">
+    <xs:complexType>
+      <xs:sequence>
+        <!-- Subjects are those specialist topics associated with this server and their scores -->
+        <xs:element name="subjects" maxOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="subject" type="xs:string" maxOccurs="unbounded"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <!-- Details are for clients to contact the admin of the server -->
+        <xs:element name="details" minOccurs="1" maxOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="serverName" type="xs:string" minOccurs="1" maxOccurs="1"/>
+              <xs:element name="website" type="xs:anyURI" minOccurs="1" maxOccurs="1"/>
+              <xs:element name="email" type="xs:string" minOccurs="1" maxOccurs="1"/>
+              <xs:element name="phone" type="xs:string" minOccurs="1" maxOccurs="1"/>
+              <xs:element name="adminName" type="xs:string" minOccurs="1" maxOccurs="1"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <!-- Policies dictate various areas -->
+        <xs:element name="policies" minOccurs="1" maxOccurs="1">
+          <xs:complexType>
+            <xs:all>
+              <!-- Dictates where meta-data should be stored.
+              Either on the local file system, in a XML database, or in a more
+              traditional database. -->
+              <xs:element name="repository" minOccurs="1" maxOccurs="1">
+                <xs:complexType>
+                  <xs:choice>
+                    <!-- If the XML database is used then all of the locations
+                    (below) are used. -->
+                    <xs:element name="xml" type="xs:boolean" maxOccurs="1"/>
+                    <!-- If a RDBMS is used then we store connection information -->
+                    <xs:element name="database" maxOccurs="1">
+                      <xs:complexType>
+                        <xs:all>
+                          <!-- The JDBC driver path -->
+                          <xs:element name="driver" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                          <!-- The database connection URI -->
+                          <xs:element name="connection" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                          <!-- The database user name -->
+                          <xs:element name="user" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                          <!-- The database user password -->
+                          <xs:element name="pw" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                        </xs:all>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:choice>
+                </xs:complexType>
+              </xs:element>
+              <!-- Dictates the server policy around archives -->
+              <xs:element name="zip" minOccurs="1" maxOccurs="1">
+                <xs:complexType>
+                  <xs:sequence>
+                    <!-- Reject any archives (identified through MIME) -->
+                    <xs:element name="reject" type="xs:boolean" maxOccurs="1"/>
+                    <!-- Store the archive intact -->
+                    <xs:element name="store" type="xs:boolean" maxOccurs="1"/>
+                    <!-- Extract the files from ZIP or GZIP archives and store individually -->
+                    <xs:element name="extract" type="xs:boolean" maxOccurs="1"/>
+                    <!-- Both the STORE and EXTRACT tags can be present together.
+                    This would be interpreted as Extract from GZIP/ZIP files
+                    and store any other archive format (which can't be opened by Java).
+                    If only the EXTRACT tag is present then files that can't be extracted
+                    will be rejected by the server.
+                    If the REJECT tag is also present then this will take precedent over all others. -->
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <!-- Dictates the server policy around XML content -->
+              <xs:element name="xml" minOccurs="1" maxOccurs="1">
+                <xs:complexType>
+                  <xs:choice>
+                    <!-- Reject any XML files -->
+                    <xs:element name="reject" type="xs:boolean" maxOccurs="1"/>
+                    <!-- Accept all XML files -->
+                    <xs:element name="all" type="xs:boolean" maxOccurs="1"/>
+                    <!-- Accept only those XML files that are fully namespace qualified. -->
+                    <xs:element name="namespace" type="xs:boolean" maxOccurs="1"/>
+                  </xs:choice>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="trust" minOccurs="1" maxOccurs="1">
+                <xs:complexType>
+                  <xs:all>
+                    <!-- Reject rules and server connections having Trust Scores below this -->
+                    <xs:element name="reject" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+                    <!-- Automatically allow rules to run if they have scores above this -->
+                    <xs:element name="accept" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+                  </xs:all>
+                </xs:complexType>
+              </xs:element>
+            </xs:all>
+          </xs:complexType>
+        </xs:element>
+        <!-- Locations are for directory URIs for various aspects of the application operation -->
+        <xs:element name="locations" minOccurs="1" maxOccurs="1">
+          <xs:complexType>
+            <xs:all>
+              <!-- These are all directories apart from the preferences and report entries which are the files themselves -->
+              <!-- Where archived files are moved to (these are the meta-data documents as the actual files can be elsewhere) -->
+              <xs:element name="archive" type="xs:anyURI" minOccurs="1"/>
+              <!-- Where conversion rules are located -->
+              <xs:element name="conversion" type="xs:anyURI" minOccurs="1"/>
+              <!-- Where mime format information is located -->
+              <xs:element name="format" type="xs:anyURI" minOccurs="1"/>
+              <!-- Where log files should be stored -->
+              <xs:element name="logging" type="xs:anyURI" minOccurs="1"/>
+              <!-- Where the application preferences is located -->
+              <xs:element name="preference" type="xs:anyURI" minOccurs="1"/>
+              <!-- Where quarantined files are located -->
+              <xs:element name="quarantine" type="xs:anyURI" minOccurs="1"/>
+              <!-- Where the meta-data files are stored (bear in mind that the actual files may be elsewhere) -->
+              <xs:element name="repository" type="xs:anyURI" minOccurs="1"/>
+              <!-- Where security rules are located -->
+              <xs:element name="security" type="xs:anyURI" minOccurs="1"/>
+              <!-- Where the report.xml file is located -->
+              <xs:element name="report" type="xs:anyURI" minOccurs="1"/>
+              <!-- Where the 2D barcodes should be directed to -->
+              <xs:element name="barcode" type="xs:anyURI" minOccurs="1"/>
+            </xs:all>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
