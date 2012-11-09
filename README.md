@@ -19,7 +19,7 @@ Planned Features
 
 Required Libraries
 ------------------
-- Apache Tika - 0.9
+- Apache Tika
 - Apache Commons Compress
 - Saxon HE 
 - XQuery for Java (XQJ)
