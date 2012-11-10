@@ -11,7 +11,7 @@ Currently the local file system is used for storage of the original documents (a
 
 Interesting Code
 ----------------
-See Apache Tika in action in src/odin/sleipnir/MetadataWorker.java - lines 68 to 110.
+- src/odin/sleipnir/MetadataWorker.java - Lines 68-110 - Uses Apache Tika to identify the document's MIME type and extract its metadata.
 
 Planned Features
 ----------------
